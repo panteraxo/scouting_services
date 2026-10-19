@@ -1,0 +1,28 @@
+# Secrets
+.env
+.env.*
+!.env.example
+**/application-local.yml
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+coverage/
+npm-debug.log*
+
+# Java / Maven
+**/target/
+*.class
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local artifacts
+tmp/
+.cache/

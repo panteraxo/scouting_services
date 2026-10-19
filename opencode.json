@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "orchestrator",
+  "instructions": [
+    "AGENTS.md",
+    "docs/arquitectura.md",
+    "docs/reglas-negocio.md"
+  ],
+  "agent": {
+    "orchestrator": {
+      "description": "Coordina tareas de Scouting.pe y delega a agentes especialistas.",
+      "mode": "primary",
+      "temperature": 0.1
+    }
+  }
+}
