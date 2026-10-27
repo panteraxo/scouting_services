@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "backend (Spring Boot)",
+      "path": "backend/scouting"
+    },
+    {
+      "name": "frontend (Next.js)",
+      "path": "frontend"
+    }
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.maven.enabled": true,
+    "java.project.importOnFirstUse": true
+  }
+}

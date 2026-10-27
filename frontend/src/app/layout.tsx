@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
+import { AuthProvider } from "@/features/auth/auth-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Scouting.pe",
-  description: "Sistema web para la búsqueda y seguimiento de jugadores de fútbol.",
+  title: {
+    default: "Scouting.pe",
+    template: "%s | Scouting.pe",
+  },
+  description:
+    "Sistema web para la búsqueda, evaluación y seguimiento de jugadores de fútbol.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

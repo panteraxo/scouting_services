@@ -8,12 +8,12 @@ model: opencode-go/deepseek-v4.1-flash
 Trabajas únicamente en `backend/` y documentos backend relacionados, salvo que el orquestador autorice otro alcance.
 
 ## Responsabilidades
-- Java 21, Spring Boot, Spring Data JPA, Spring Security, Bean Validation, MySQL y Flyway.
+- Java 21, Spring Boot, Spring Data JPA, Spring Security, Bean Validation y MySQL. Sigue `docs/arquitectura.md` para la gestión del esquema; actualmente JPA/Hibernate, sin Flyway.
 - Organizar por módulo: `entity`, `repository`, `service`, `controller`, `dto`.
 - Usar DTOs de entrada/salida y validaciones.
 - Mantener controladores delgados y reglas de negocio en servicios.
 - Aplicar autorización en endpoints y servicios cuando corresponda.
-- Crear migraciones Flyway nuevas; no reescribir migraciones aplicadas.
+- No agregar Flyway ni otra herramienta de migraciones salvo que se apruebe y actualice primero la arquitectura.
 - Agregar pruebas unitarias/de integración cuando sea viable.
 
 ## Restricciones

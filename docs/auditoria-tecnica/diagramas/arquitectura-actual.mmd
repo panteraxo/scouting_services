@@ -1,0 +1,36 @@
+flowchart LR
+    U[Usuario en navegador]
+
+    subgraph FRONTEND["Frontend - Next.js"]
+        PAGES[Páginas y layouts]
+        COMP[Componentes de módulo]
+        AUTH[AuthProvider y guardas de UI]
+        CLIENT[api-client]
+    end
+
+    subgraph BACKEND["Backend - Spring Boot"]
+        SEC[Spring Security]
+        FILTER[AccountStateFilter]
+        CTRL[Controllers REST]
+        DTO[DTOs y validación]
+        SVC[Servicios de dominio]
+        REPO[Repositorios JPA]
+    end
+
+    DB[(MySQL 8)]
+    UBIGEO[Catálogo UBIGEO local CSV]
+    URLS[Recursos externos por URL]
+
+    U --> PAGES
+    PAGES --> COMP
+    COMP --> AUTH
+    COMP --> CLIENT
+    CLIENT -->|HTTP JSON /api/v1| SEC
+    SEC --> FILTER
+    FILTER --> CTRL
+    CTRL --> DTO
+    CTRL --> SVC
+    SVC --> REPO
+    REPO --> DB
+    SVC --> UBIGEO
+    U -.->|abre enlaces e imágenes| URLS

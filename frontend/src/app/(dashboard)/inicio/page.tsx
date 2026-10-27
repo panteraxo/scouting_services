@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
+import { DashboardHome } from "@/features/auth/components/dashboard-home";
+
+export const metadata: Metadata = {
+  title: "Inicio",
+};
+
 export default function DashboardPage() {
-  return (
-    <main style={{ padding: 32 }}>
-      <p>SCOUTING.PE / DASHBOARD</p>
-      <h1>Inicio</h1>
-      <p>Dashboard inicial. Los módulos se implementarán mediante tareas independientes.</p>
-    </main>
-  );
+  return <DashboardHome />;
 }

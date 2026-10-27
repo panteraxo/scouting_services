@@ -1,0 +1,288 @@
+erDiagram
+    USER ||--o| USER_ORGANIZATION : "se asigna"
+    ACADEMY ||--o{ USER_ORGANIZATION : "acoge"
+    CLUB ||--o{ USER_ORGANIZATION : "acoge"
+    ACADEMY ||--o{ ACADEMY_TRAINING_GROUP : "grupos"
+
+    USER ||--o| PLAYER_PROFILE : "tiene perfil"
+    PLAYER_PROFILE ||--o| PLAYER_GUARDIAN : "tutor"
+    PLAYER_PROFILE ||--o{ PLAYER_GUARDIAN_CONSENT_EVENT : "consentimiento"
+    PLAYER_PROFILE ||--o{ PLAYER_HISTORY_ENTRY : "historial"
+    PLAYER_HISTORY_ENTRY ||--o{ PLAYER_HISTORY_METRIC : "metricas"
+    PLAYER_HISTORY_ENTRY ||--o{ PLAYER_HISTORY_REVISION : "revisiones"
+
+    USER ||--o{ PROSPECT : "ojea"
+    PLAYER_PROFILE ||--o{ PROSPECT : "es seguido"
+    PROSPECT ||--o{ PROSPECT_EVALUATION : "evaluaciones"
+
+    PROSPECT ||--o{ RECOMMENDATION : "origina"
+    CLUB ||--o{ RECOMMENDATION : "recibe"
+    USER ||--o{ RECOMMENDATION : "envia"
+
+    RECOMMENDATION ||--o{ RECOMMENDATION_HISTORY_ENTRY : "selecciona"
+    PLAYER_HISTORY_ENTRY ||--o{ RECOMMENDATION_HISTORY_ENTRY : "incluido"
+
+    RECOMMENDATION ||--o{ RECOMMENDATION_EVALUATION : "selecciona"
+    PROSPECT_EVALUATION ||--o{ RECOMMENDATION_EVALUATION : "incluida"
+
+    RECOMMENDATION ||--o{ RECOMMENDATION_RESPONSE : "respuestas"
+    CLUB ||--o{ RECOMMENDATION_RESPONSE : "responde"
+    USER ||--o{ RECOMMENDATION_RESPONSE : "registra"
+
+    USER {
+        bigint id PK
+        string email UK
+        string username UK
+        string password_hash
+        string first_name
+        string last_name
+        string document_type
+        string document_number UK
+        string phone
+        string role
+        string status
+        boolean must_change_password
+        datetime temporary_password_expires_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    USER_ORGANIZATION {
+        bigint id PK
+        bigint user_id FK
+        bigint academy_id FK
+        bigint club_id FK
+        string position
+        datetime created_at
+    }
+
+    ACADEMY {
+        bigint id PK
+        string code UK
+        string name
+        string type
+        string ruc UK
+        int foundation_year
+        string logo_url
+        string description
+        string ubigeo_code
+        string address
+        string institutional_email
+        string institutional_phone
+        string headquarters
+        string representative_name
+        string operational_status
+        string verification_status
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    ACADEMY_TRAINING_GROUP {
+        bigint academy_id FK
+        int sort_order
+        string group_name
+    }
+
+    CLUB {
+        bigint id PK
+        string code UK
+        string name
+        string type
+        string ruc UK
+        int foundation_year
+        string logo_url
+        string description
+        string country_code
+        string ubigeo_code
+        string address
+        string institutional_email
+        string institutional_phone
+        string operational_status
+        string verification_status
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLAYER_PROFILE {
+        bigint id PK
+        bigint user_id FK
+        date birth_date
+        string residence_ubigeo_code
+        int height_cm
+        decimal weight_kg
+        string position
+        string best_position
+        string dominant_foot
+        string summary
+        string photo_url
+        string operational_status
+        string profile_status
+        datetime completed_at
+        bigint created_by_user_id FK
+        bigint updated_by_user_id FK
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLAYER_GUARDIAN {
+        bigint id PK
+        bigint player_profile_id FK
+        string first_name
+        string last_name
+        string document_type
+        string document_number
+        string phone
+        string address
+        string relationship
+        bigint created_by_user_id FK
+        bigint updated_by_user_id FK
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLAYER_GUARDIAN_CONSENT_EVENT {
+        bigint id PK
+        bigint player_profile_id FK
+        string status
+        datetime recorded_at
+        bigint recorded_by_user_id FK
+        string evidence_url
+        string note
+    }
+
+    PLAYER_HISTORY_ENTRY {
+        bigint id PK
+        bigint player_profile_id FK
+        string activity_type
+        date activity_date
+        string competition
+        string opponent
+        string age_category
+        string competitive_level
+        string position_played
+        string participation
+        int minutes_played
+        string team_result
+        int team_goals
+        int opponent_goals
+        int player_goals
+        int assists
+        int yellow_cards
+        int red_cards
+        string observations
+        string video_url
+        int video_timestamp_seconds
+        string video_description
+        int technical_rating
+        int tactical_rating
+        int physical_rating
+        int mental_rating
+        int overall_rating
+        string strengths
+        string improvements
+        string recommendations
+        bigint created_by_user_id FK
+        bigint last_modified_by_user_id FK
+        int revision_number
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLAYER_HISTORY_METRIC {
+        bigint id PK
+        bigint history_entry_id FK
+        string metric_group
+        string metric_code
+        decimal numeric_value
+    }
+
+    PLAYER_HISTORY_REVISION {
+        bigint id PK
+        bigint history_entry_id FK
+        int revision_number
+        string change_type
+        string reason
+        text snapshot_json
+        bigint edited_by_user_id FK
+        datetime edited_at
+    }
+
+    PROSPECT {
+        bigint id PK
+        bigint scout_id FK
+        bigint player_id FK
+        string status
+        string private_notes
+        datetime started_at
+        datetime last_activity_at
+        datetime closed_at
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    PROSPECT_EVALUATION {
+        bigint id PK
+        bigint prospect_id FK
+        bigint created_by_user_id FK
+        date evaluated_at
+        int technical_rating
+        int tactical_rating
+        int physical_rating
+        int mental_rating
+        int overall_rating
+        string strengths
+        string improvements
+        string recommendation
+        string private_notes
+        string video_url
+        datetime created_at
+    }
+
+    RECOMMENDATION {
+        bigint id PK
+        bigint prospect_id FK
+        bigint club_id FK
+        bigint scout_id FK
+        string status
+        string message
+        text snapshot_json
+        string authorization_type
+        datetime authorized_at
+        datetime sent_at
+        bigint version
+        datetime created_at
+        datetime updated_at
+    }
+
+    RECOMMENDATION_HISTORY_ENTRY {
+        bigint id PK
+        bigint recommendation_id FK
+        bigint history_entry_id FK
+    }
+
+    RECOMMENDATION_EVALUATION {
+        bigint id PK
+        bigint recommendation_id FK
+        bigint evaluation_id FK
+    }
+
+    RECOMMENDATION_RESPONSE {
+        bigint id PK
+        bigint recommendation_id FK
+        bigint club_id FK
+        bigint responded_by_user_id FK
+        string status
+        string message
+        datetime responded_at
+    }
+
+    ORGANIZATION_CODE_SEQUENCE {
+        string organization_type PK
+        bigint next_value
+    }
