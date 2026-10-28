@@ -29,7 +29,17 @@ En desarrollo se puede usar MySQL local. Para despliegue se preparó una configu
 CREATE DATABASE IF NOT EXISTS scouting CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-Variables: `DB_URL`, `DB_USERNAME` (por defecto `root`) y `DB_PASSWORD`.
+Variables requeridas: `DB_URL`, `DB_USERNAME` y `DB_PASSWORD`. Ya no tienen valores por defecto en `application.properties`: en producción se configuran en el panel del proveedor (Render, Railway, etc.) y nunca se escriben en Git.
+
+En PowerShell, para desarrollo local:
+
+```powershell
+$env:DB_URL="jdbc:mysql://localhost:3306/scouting?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+$env:DB_USERNAME="root"
+$env:DB_PASSWORD="TU_PASSWORD_LOCAL"
+```
+
+En Render, agrega esas tres variables en **Environment**. No definas `SERVER_PORT`: Render inyecta `PORT` y el backend lo usa automáticamente.
 
 Para Aiven, TLS y contenedores, sigue [docs/despliegue/docker-aiven.md](docs/despliegue/docker-aiven.md).
 

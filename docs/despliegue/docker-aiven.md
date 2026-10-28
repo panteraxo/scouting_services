@@ -209,6 +209,22 @@ Usa el `Dockerfile` de `backend/scouting` en la plataforma elegida (Render, Rail
 
 El backend usa `PORT` si la plataforma lo inyecta; si no existe, usa `SERVER_PORT` y, como ultimo respaldo, 9193. Revisa el puerto publico de la plataforma antes de desplegar.
 
+### Render
+
+1. Crea un **Web Service** desde el repositorio.
+2. Selecciona **Docker** como runtime.
+3. Configura el **Root Directory** como `backend/scouting` y el **Dockerfile Path** como `Dockerfile`.
+4. En **Environment**, agrega `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `SPRING_PROFILES_ACTIVE=prod`, `APP_CORS_ALLOWED_ORIGINS` y `JPA_DDL_AUTO=update`.
+5. No agregues `SERVER_PORT`: Render inyecta `PORT` y la aplicacion lo prioriza.
+6. No escribas credenciales en el Dockerfile ni en `application.properties`.
+7. Para el health check usa preferentemente un chequeo TCP; si usas `/api/v1/auth/csrf`, ten en cuenta la advertencia de sesiones vacias.
+
+`DB_URL` debe ser una URL JDBC de Aiven, no una URI `mysql://`:
+
+```text
+jdbc:mysql://HOST:PORT/scouting?sslMode=REQUIRED&serverTimezone=UTC
+```
+
 Health check sugerido:
 
 ```text
