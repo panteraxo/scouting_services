@@ -71,7 +71,7 @@ public class Recommendation {
     private String message;
 
     @Lob
-    @Column(name = "snapshot_json", nullable = false)
+    @Column(name = "snapshot_json", nullable = false, columnDefinition = "LONGTEXT")
     private String snapshotJson;
 
     @Enumerated(EnumType.STRING)

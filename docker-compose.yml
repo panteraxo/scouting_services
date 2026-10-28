@@ -1,0 +1,28 @@
+name: scouting-pe
+
+services:
+  backend:
+    build:
+      context: ./backend/scouting
+      dockerfile: Dockerfile
+    env_file:
+      # Opcional para permitir `docker compose build` desde un clon limpio.
+      # Para arrancar el backend se necesita crear .env.docker.
+      - path: .env.docker
+        required: false
+    ports:
+      - "${SERVER_PORT:-9193}:${SERVER_PORT:-9193}"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Next.js lo incrusta en build; no basta con cambiarlo en runtime.
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:?Define NEXT_PUBLIC_API_BASE_URL y ejecuta docker compose --env-file .env.docker build}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped

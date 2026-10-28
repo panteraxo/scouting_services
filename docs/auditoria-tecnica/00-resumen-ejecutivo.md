@@ -4,6 +4,8 @@
 **Alcance:** código fuente del repositorio, configuración, pruebas y documentación existente.  
 **Naturaleza:** auditoría de solo lectura. No se modificó código de aplicación ni se ejecutaron operaciones destructivas.
 
+**Nota posterior (28-oct-2026):** esta auditoria es un snapshot de su fecha. Desde entonces se agregaron Dockerfiles, Docker Compose y la guia de Aiven; consultar `docs/despliegue/docker-aiven.md` y SCP-017 en `docs/tasks/queue.md` para el estado actual.
+
 ## 1. Qué es Scouting.pe según el código
 
 Scouting.pe es una aplicación web para la gestión de talento futbolístico en Perú. El código implementa:

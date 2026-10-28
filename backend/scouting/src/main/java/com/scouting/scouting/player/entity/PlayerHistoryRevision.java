@@ -53,7 +53,7 @@ public class PlayerHistoryRevision {
     private String reason;
 
     @Lob
-    @Column(name = "snapshot_json", nullable = false)
+    @Column(name = "snapshot_json", nullable = false, columnDefinition = "LONGTEXT")
     private String snapshotJson;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

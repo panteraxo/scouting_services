@@ -4,6 +4,7 @@
 - `frontend/`: Next.js App Router + TypeScript.
 - `backend/`: Spring Boot REST API.
 - `database/`: notas y documentación de base de datos.
+- `docs/despliegue/`: Docker, Aiven MySQL y publicación de la aplicación.
 - `.opencode/agents/`: instrucciones de agentes especialistas.
 
 ## Flujo de comunicación

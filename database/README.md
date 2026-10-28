@@ -19,3 +19,7 @@ ALTER TABLE recommendations
 ```
 
 Hibernate no cambia el tipo de una columna existente con `ddl-auto=update`; por eso la corrección es manual para instalaciones ya creadas.
+
+## Nota para despliegues nuevos
+
+Los campos `PlayerHistoryRevision.snapshotJson` y `Recommendation.snapshotJson` declaran `columnDefinition = "LONGTEXT"`. En una base nueva Hibernate crea `LONGTEXT`; los `ALTER` anteriores solo son necesarios para bases creadas con versiones previas.
